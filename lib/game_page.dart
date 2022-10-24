@@ -299,6 +299,7 @@ class _GamePageState extends State<GamePage> {
                 clearBoard();
                 Navigator.of(context).pop();
               },
+              onFocusChange: (value) => clearBoard(),
               child: const Text("New Game"),
             )
           ],
