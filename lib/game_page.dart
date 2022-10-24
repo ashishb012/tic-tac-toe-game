@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:tictactoe/main.dart';
 
-class RegularGamePage extends StatefulWidget {
-  const RegularGamePage({super.key});
+class GamePage extends StatefulWidget {
+  final bool myGame;
+  const GamePage({required this.myGame, super.key});
 
   @override
-  State<RegularGamePage> createState() => _RegularGamePageState();
+  State<GamePage> createState() => _GamePageState();
 }
 
-class _RegularGamePageState extends State<RegularGamePage> {
+class _GamePageState extends State<GamePage> {
   bool xTurn = true;
-
   List<String> xoxBoard = ['', '', '', '', '', '', '', '', ''];
   int oScore = 0;
   int xScore = 0;
+  int xFilled = 0;
+  int oFilled = 0;
   int filledBoxes = 0;
 
   @override
@@ -24,16 +25,23 @@ class _RegularGamePageState extends State<RegularGamePage> {
           title: const Text("Tic Tac Toe"),
           backgroundColor: const Color.fromARGB(240, 0, 0, 0),
           centerTitle: true,
-          //shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
         ),
         body: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [Colors.indigoAccent, Colors.greenAccent],
-            ),
-          ),
+          decoration: widget.myGame
+              ? const BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [Colors.indigoAccent, Colors.greenAccent],
+                  ),
+                )
+              : const BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [Colors.orangeAccent, Colors.deepPurpleAccent],
+                  ),
+                ),
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(
@@ -43,10 +51,7 @@ class _RegularGamePageState extends State<RegularGamePage> {
                 gameGrid(),
                 playerTurn(),
                 ElevatedButton(
-                  onPressed: () =>
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => const HomePage(),
-                  )),
+                  onPressed: () => Navigator.of(context).pop(),
                   child: const Text("Back"),
                 )
               ],
@@ -120,7 +125,13 @@ class _RegularGamePageState extends State<RegularGamePage> {
         itemCount: 9,
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
-            onTap: () => tapped(index),
+            onTap: () {
+              if (widget.myGame) {
+                myGameTapped(index);
+              } else {
+                classicTapped(index);
+              }
+            },
             child: Container(
               decoration:
                   BoxDecoration(border: Border.all(color: Colors.black)),
@@ -140,7 +151,7 @@ class _RegularGamePageState extends State<RegularGamePage> {
     );
   }
 
-  void tapped(int index) {
+  void classicTapped(int index) {
     setState(() {
       if (xTurn && xoxBoard[index] == '') {
         xoxBoard[index] = 'X';
@@ -154,6 +165,34 @@ class _RegularGamePageState extends State<RegularGamePage> {
     });
   }
 
+  void myGameTapped(int index) {
+    setState(() {
+      // Remove symbol logic
+      if (xTurn && xoxBoard[index] == "X" && xFilled == 3) {
+        xoxBoard[index] = '';
+        xFilled -= 1;
+        filledBoxes -= 1;
+      } else if (!xTurn && xoxBoard[index] == "O" && oFilled == 3) {
+        xoxBoard[index] = "";
+        oFilled -= 1;
+        filledBoxes -= 1;
+      }
+      // Add symbol logic
+      else if (xTurn && xoxBoard[index] == "" && xFilled < 3) {
+        xoxBoard[index] = "X";
+        xFilled += 1;
+        filledBoxes += 1;
+        xTurn = !xTurn;
+      } else if (!xTurn && xoxBoard[index] == "" && oFilled < 3) {
+        xoxBoard[index] = "O";
+        oFilled += 1;
+        filledBoxes += 1;
+        xTurn = !xTurn;
+      }
+      checkTheWinner();
+    });
+  }
+
   Widget playerTurn() {
     return Padding(
       padding: const EdgeInsets.only(bottom: 50),
@@ -162,7 +201,7 @@ class _RegularGamePageState extends State<RegularGamePage> {
             style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
-                color: Colors.white)),
+                color: Colors.black)),
       ),
     );
   }
@@ -173,6 +212,8 @@ class _RegularGamePageState extends State<RegularGamePage> {
         xoxBoard[i] = "";
       }
       filledBoxes = 0;
+      xFilled = 0;
+      oFilled = 0;
     });
   }
 
@@ -247,8 +288,11 @@ class _RegularGamePageState extends State<RegularGamePage> {
       builder: ((BuildContext context) {
         return AlertDialog(
           title: Text(
-              winner != "" ? "Congratulations! Player $winner " : "Match Tied"),
-          content: Text(winner != "" ? "You got a point" : "Play again "),
+            winner != "" ? "Congratulations! Player $winner " : "Match Tied",
+          ),
+          content: Text(winner != ""
+              ? "You got a point \nReady for new game"
+              : "Play again "),
           actions: [
             TextButton(
               onPressed: () {

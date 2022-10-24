@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tictactoe/my_game_page.dart';
-import 'package:tictactoe/regular_game_page.dart';
+import 'package:tictactoe/game_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,6 +16,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.black,
       ),
       home: const HomePage(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -47,11 +47,8 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
-                  onPressed: () => Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                      builder: (context) => const RegularGamePage(),
-                    ),
-                  ),
+                  onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const GamePage(myGame: false))),
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(Colors.white),
                     shape: MaterialStateProperty.all(
@@ -81,11 +78,8 @@ class _HomePageState extends State<HomePage> {
                           color: Colors.black)),
                 ),
                 ElevatedButton(
-                  onPressed: () => Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                      builder: (context) => const MyGamePage(),
-                    ),
-                  ),
+                  onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const GamePage(myGame: true))),
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(Colors.white),
                     shape: MaterialStateProperty.all(
