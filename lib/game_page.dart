@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class GamePage extends StatefulWidget {
-  final bool myGame;
-  const GamePage({required this.myGame, super.key});
+  final bool isMyGame;
+  const GamePage({required this.isMyGame, super.key});
 
   @override
   State<GamePage> createState() => _GamePageState();
@@ -19,98 +19,122 @@ class _GamePageState extends State<GamePage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text("Tic Tac Toe"),
-          backgroundColor: const Color.fromARGB(240, 0, 0, 0),
-          centerTitle: true,
-        ),
-        body: Container(
-          decoration: widget.myGame
-              ? const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [Colors.indigoAccent, Colors.greenAccent],
-                  ),
-                )
-              : const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [Colors.orangeAccent, Colors.deepPurpleAccent],
-                  ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Tic Tac Toe"),
+        backgroundColor: const Color.fromARGB(240, 0, 0, 0),
+        centerTitle: true,
+      ),
+      body: Container(
+        decoration: widget.isMyGame
+            ? const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Colors.indigoAccent,
+                    Colors.greenAccent,
+                  ],
                 ),
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                scoreBoard(),
-                gameGrid(),
-                playerTurn(),
-                ElevatedButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: const Text("Back"),
-                )
-              ],
-            ),
+              )
+            : const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Colors.orangeAccent,
+                    Colors.deepPurpleAccent,
+                  ],
+                ),
+              ),
+        child: Padding(
+          padding: EdgeInsets.all(
+            MediaQuery.of(context).size.width / 20,
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              scoreBoard(),
+              gameGrid(),
+              playerTurn(),
+              ElevatedButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text("Back"),
+              ),
+            ],
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            clearBoard();
-            xScore = 0;
-            oScore = 0;
-          },
-          child: const Icon(Icons.refresh),
-        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          clearBoard();
+          xScore = 0;
+          oScore = 0;
+          setState(() {});
+        },
+        child: const Icon(Icons.refresh),
       ),
     );
   }
 
   Widget scoreBoard() {
     return Expanded(
-        child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(30),
-          child: Column(
-            children: [
-              const Text("Player X",
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: EdgeInsets.all(
+              MediaQuery.of(context).size.width / 20,
+            ),
+            child: Column(
+              children: [
+                const Text(
+                  "Player X",
                   style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white)),
-              Text(xScore.toString(),
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+                Text(
+                  xScore.toString(),
                   style: const TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black)),
-            ],
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(30),
-          child: Column(
-            children: [
-              const Text("Player O",
+          Padding(
+            padding: EdgeInsets.all(
+              MediaQuery.of(context).size.width / 20,
+            ),
+            child: Column(
+              children: [
+                const Text(
+                  "Player O",
                   style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white)),
-              Text(oScore.toString(),
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+                Text(
+                  oScore.toString(),
                   style: const TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black)),
-            ],
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
-    ));
+        ],
+      ),
+    );
   }
 
   Widget gameGrid() {
@@ -122,19 +146,21 @@ class _GamePageState extends State<GamePage> {
           crossAxisSpacing: 3,
           mainAxisSpacing: 3,
         ),
+        physics: const NeverScrollableScrollPhysics(),
         itemCount: 9,
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
             onTap: () {
-              if (widget.myGame) {
-                myGameTapped(index);
+              if (widget.isMyGame) {
+                isMyGameTapped(index);
               } else {
                 classicTapped(index);
               }
             },
             child: Container(
-              decoration:
-                  BoxDecoration(border: Border.all(color: Colors.black)),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.black),
+              ),
               child: Center(
                 child: Text(
                   xoxBoard[index],
@@ -165,7 +191,7 @@ class _GamePageState extends State<GamePage> {
     });
   }
 
-  void myGameTapped(int index) {
+  void isMyGameTapped(int index) {
     setState(() {
       // Remove symbol logic
       if (xTurn && xoxBoard[index] == "X" && xFilled == 3) {
@@ -188,6 +214,8 @@ class _GamePageState extends State<GamePage> {
         oFilled += 1;
         filledBoxes += 1;
         xTurn = !xTurn;
+      } else if (oFilled < 3 || xFilled < 3) {
+        classicTapped(index);
       }
       checkTheWinner();
     });
@@ -195,13 +223,18 @@ class _GamePageState extends State<GamePage> {
 
   Widget playerTurn() {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 50),
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.of(context).size.height / 15,
+      ),
       child: Center(
-        child: Text(xTurn ? "Turn of X" : "Turn of O",
-            style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.black)),
+        child: Text(
+          xTurn ? "Turn of X" : "Turn of O",
+          style: const TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+        ),
       ),
     );
   }
@@ -288,8 +321,7 @@ class _GamePageState extends State<GamePage> {
       builder: ((BuildContext context) {
         return AlertDialog(
           title: Text(
-            winner != "" ? "Congratulations! Player $winner " : "Match Tied",
-          ),
+              winner != "" ? "Congratulations! Player $winner " : "Match Tied"),
           content: Text(winner != ""
               ? "You got a point \nReady for new game"
               : "Play again "),
@@ -299,9 +331,8 @@ class _GamePageState extends State<GamePage> {
                 clearBoard();
                 Navigator.of(context).pop();
               },
-              onFocusChange: (value) => clearBoard(),
               child: const Text("New Game"),
-            )
+            ),
           ],
         );
       }),
