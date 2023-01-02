@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tictactoe/tic_tac_toe_game/constants.dart';
 
 class GamePage extends StatefulWidget {
   final bool isMyGame;
@@ -9,14 +10,6 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePageState extends State<GamePage> {
-  bool xTurn = true;
-  List<String> xoxBoard = ['', '', '', '', '', '', '', '', ''];
-  int oScore = 0;
-  int xScore = 0;
-  int xFilled = 0;
-  int oFilled = 0;
-  int filledBoxes = 0;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

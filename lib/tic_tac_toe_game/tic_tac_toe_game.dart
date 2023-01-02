@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tictactoe/game_page.dart';
+import 'package:tictactoe/tic_tac_toe_game/game_page.dart';
 
 class TicTacToeGame extends StatefulWidget {
   const TicTacToeGame({super.key});
