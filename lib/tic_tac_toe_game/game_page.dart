@@ -11,6 +11,15 @@ class GamePage extends StatefulWidget {
 
 class _GamePageState extends State<GamePage> {
   @override
+  void initState() {
+    clearBoard();
+    xScore = 0;
+    oScore = 0;
+    setState(() {});
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -50,10 +59,12 @@ class _GamePageState extends State<GamePage> {
               scoreBoard(),
               gameGrid(),
               playerTurn(),
-              ElevatedButton(
-                onPressed: () => Navigator.of(context).pop(),
-                child: const Text("Back"),
-              ),
+              // ElevatedButton(
+              //   onPressed: () {
+              //     Navigator.of(context).pop();
+              //   },
+              //   child: const Text("Back"),
+              // ),
             ],
           ),
         ),
@@ -81,18 +92,18 @@ class _GamePageState extends State<GamePage> {
             ),
             child: Column(
               children: [
-                const Text(
+                Text(
                   "Player X",
                   style: TextStyle(
-                    fontSize: 22,
+                    fontSize: MediaQuery.of(context).size.width / 15,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
                 ),
                 Text(
                   xScore.toString(),
-                  style: const TextStyle(
-                    fontSize: 25,
+                  style: TextStyle(
+                    fontSize: MediaQuery.of(context).size.width / 15,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                   ),
@@ -106,18 +117,18 @@ class _GamePageState extends State<GamePage> {
             ),
             child: Column(
               children: [
-                const Text(
+                Text(
                   "Player O",
                   style: TextStyle(
-                    fontSize: 22,
+                    fontSize: MediaQuery.of(context).size.width / 15,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
                 ),
                 Text(
                   oScore.toString(),
-                  style: const TextStyle(
-                    fontSize: 25,
+                  style: TextStyle(
+                    fontSize: MediaQuery.of(context).size.width / 15,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                   ),
@@ -157,9 +168,9 @@ class _GamePageState extends State<GamePage> {
               child: Center(
                 child: Text(
                   xoxBoard[index],
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: Colors.white,
-                    fontSize: 30,
+                    fontSize: MediaQuery.of(context).size.width / 8,
                   ),
                 ),
               ),
@@ -222,8 +233,8 @@ class _GamePageState extends State<GamePage> {
       child: Center(
         child: Text(
           xTurn ? "Turn of X" : "Turn of O",
-          style: const TextStyle(
-            fontSize: 20,
+          style: TextStyle(
+            fontSize: MediaQuery.of(context).size.width / 15,
             fontWeight: FontWeight.bold,
             color: Colors.black,
           ),
@@ -316,7 +327,7 @@ class _GamePageState extends State<GamePage> {
           title: Text(
               winner != "" ? "Congratulations! Player $winner " : "Match Tied"),
           content: Text(winner != ""
-              ? "You got a point \nReady for new game"
+              ? "You got a point \nReady for next game"
               : "Play again "),
           actions: [
             TextButton(
