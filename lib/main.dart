@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.black,
       ),
       home: const TicTacToeGame(),
-      //debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: false,
     );
   }
 }

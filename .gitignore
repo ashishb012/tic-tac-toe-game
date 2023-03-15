@@ -1,5 +1,7 @@
 .vscode/
 
+git.sh
+
 # Miscellaneous
 *.class
 *.log
