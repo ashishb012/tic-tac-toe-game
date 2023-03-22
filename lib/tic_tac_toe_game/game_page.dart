@@ -22,6 +22,7 @@ class _GamePageState extends State<GamePage> {
     clearBoard();
     xScore = 0;
     oScore = 0;
+    dispose();
     setState(() {});
     super.dispose();
   }
@@ -251,14 +252,13 @@ class _GamePageState extends State<GamePage> {
   }
 
   clearBoard() {
-    setState(() {
-      for (var i = 0; i < 9; i++) {
-        xoxBoard[i] = "";
-      }
-      filledBoxes = 0;
-      xFilled = 0;
-      oFilled = 0;
-    });
+    for (var i = 0; i < 9; i++) {
+      xoxBoard[i] = "";
+    }
+    filledBoxes = 0;
+    xFilled = 0;
+    oFilled = 0;
+    // setState(() {});
   }
 
   void checkTheWinner() {
@@ -340,6 +340,7 @@ class _GamePageState extends State<GamePage> {
             TextButton(
               onPressed: () {
                 clearBoard();
+                setState(() {});
                 Navigator.of(context).pop();
               },
               child: const Text("New Game"),
