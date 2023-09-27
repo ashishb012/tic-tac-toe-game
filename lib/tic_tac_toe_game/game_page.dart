@@ -22,8 +22,7 @@ class _GamePageState extends State<GamePage> {
     clearBoard();
     xScore = 0;
     oScore = 0;
-    dispose();
-    setState(() {});
+    _GamePageState();
     super.dispose();
   }
 

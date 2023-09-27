@@ -14,11 +14,11 @@ class _TicTacToeGameState extends State<TicTacToeGame> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Tic Tac Toe"),
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: Colors.black,
         centerTitle: true,
         //shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
       ),
-      backgroundColor: Colors.deepPurpleAccent,
+      backgroundColor: Colors.white70,
       body: Padding(
         padding: EdgeInsets.all(
           MediaQuery.of(context).size.width / 20,
@@ -66,7 +66,7 @@ class _TicTacToeGameState extends State<TicTacToeGame> {
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                    color: Colors.white,
                   ),
                 ),
               ),
@@ -112,7 +112,7 @@ class _TicTacToeGameState extends State<TicTacToeGame> {
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                    color: Colors.white,
                   ),
                 ),
               ),
