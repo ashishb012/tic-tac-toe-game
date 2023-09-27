@@ -14,11 +14,9 @@ Download and install the APK file & Try the game in your Android device
 
 ## Screenshots
 
-![Screenshot_20230927_160616](https://github.com/ashishb012/tic_tac_toe_game/assets/106541158/0ff90a96-2de9-4051-9aec-320d80fcb8af)
-
-![Screenshot_20230927_160645](https://github.com/ashishb012/tic_tac_toe_game/assets/106541158/e5ec7600-041c-4120-85ae-262c9471c437)
-
-![Screenshot_20230927_160730](https://github.com/ashishb012/tic_tac_toe_game/assets/106541158/9e7aa13a-758c-4529-b096-de034cc8dbae)
+![Screenshot_20230927_160616 (Phone)](https://github.com/ashishb012/tic_tac_toe_game/assets/106541158/87b73eed-5efb-4bd0-a3ca-6204816b9a97)
+![Screenshot_20230927_160645 (Phone)](https://github.com/ashishb012/tic_tac_toe_game/assets/106541158/1153a18c-6af6-417e-be49-b4ed59381e75)
+![Screenshot_20230927_160730 (Phone)](https://github.com/ashishb012/tic_tac_toe_game/assets/106541158/a5f391ca-3603-466e-92c9-3f785b1baef6)
 
 ## Run Locally
 
