@@ -23,16 +23,12 @@ Download and install the APK file & Try the game in your Android device
 Clone the project
 
 ```bash
-  git clone https://github.com/ashishb012/Notes-App.git
+  git https://github.com/ashishb012/tic_tac_toe_game.git
 ```
 
 or Download the zip file & extract the source code
 
 Go to the project directory in VS code
-
-```bash
-  cd Notes-App
-```
 
 Install dependencies
 
